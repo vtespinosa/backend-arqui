@@ -13,11 +13,11 @@ install:
 
 script:
   - docker-compose -f docker-compose.test.yml up -d
-  - sed -i -e 's/\r$/\n/' test.sh
+  - sed -i -e 's/\r$/\n/' app/test.sh
   - bash test.sh
-  - sed -i -e 's/\r$/\n/' start.sh
-  - sed -i -e 's/\r$/\n/' stop.sh
-  - sed -i -e 's/\r$/\n/' install.sh #correct files endings
+  - sed -i -e 's/\r$/\n/' app/start.sh
+  - sed -i -e 's/\r$/\n/' app/stop.sh
+  - sed -i -e 's/\r$/\n/' app/install.sh #correct files endings
   - zip -r latest *
   - mkdir -p dpl_cd_upload
   - mv latest.zip dpl_cd_upload/latest.zip
