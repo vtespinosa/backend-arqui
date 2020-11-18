@@ -27,10 +27,3 @@ class RoomTestCase(APITestCase):
       data=json.dumps(data),
     )
     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-  
-  def test_room_index(self):
-    response = self.client.get(
-      '/rooms/',
-      content_type='application/json',
-    )
-    self.assertEqual(response.status_code, status.HTTP_200_OK)
