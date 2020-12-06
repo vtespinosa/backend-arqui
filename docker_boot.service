@@ -5,8 +5,8 @@ After=docker.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/home/ubuntu/iic2173-proyecto-semestral-grupo10
-ExecStart=/usr/local/bin/docker-compose -f /home/ubuntu/iic2173-proyecto-semestral-grupo10/docker-compose.prod.yml up -d --remove-orphans
+WorkingDirectory=/home/ubuntu/backend-arqui
+ExecStart=/usr/local/bin/docker-compose -f /home/ubuntu/backend-arqui/docker-compose.prod.yml up -d --remove-orphans
 
 [Install]
 WantedBy=multi-user.target

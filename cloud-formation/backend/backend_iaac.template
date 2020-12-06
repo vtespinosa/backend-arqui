@@ -1,0 +1,86 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "IaaCLoadBalancer": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "Type": "application",
+        "IpAddressType": "ipv4",
+        "Name": "IaaCLoadBalancer",
+        "SecurityGroups": ["sg-ee0021d0"],
+        "SubnetMappings": [ 
+          { "SubnetId": "subnet-213c9647" },
+          { "SubnetId": "subnet-47591c0a" },
+          { "SubnetId": "subnet-54942475" },
+          { "SubnetId": "subnet-81026d8f" },
+          { "SubnetId": "subnet-a538c194" },
+          { "SubnetId": "subnet-b5c076ea" }
+        ]
+      }
+    },
+    "IaaCTargetGroup": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "HealthCheckEnabled" : true,
+        "HealthCheckIntervalSeconds" : 30,
+        "HealthCheckPath" : "/",
+        "HealthCheckPort" : "traffic-port",
+        "HealthCheckProtocol" : "HTTP",
+        "HealthCheckTimeoutSeconds" : 5,
+        "HealthyThresholdCount" : 5,
+        "Name" : "IaaCTargetGroup",
+        "Port" : 80,
+        "Protocol" : "HTTP",
+        "UnhealthyThresholdCount" : 2,
+        "VpcId" : "vpc-d84086a5"
+      }
+    },
+    "IaaCListenerHttp": {
+      "Type" : "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties" : {
+        "DefaultActions" : [{
+          "Type": "redirect",
+          "RedirectConfig": {
+            "StatusCode": "HTTP_301",
+            "Path": "/#{path}",
+            "Host": "#{host}",
+            "Port": 443,
+            "Protocol": "HTTPS",
+            "Query": "#{query}"
+          }
+        }],
+        "LoadBalancerArn" : { "Ref": "IaaCLoadBalancer" },
+        "Port" : 80,
+        "Protocol" : "HTTP",
+      }
+    },
+    "IaaCListenerHttps": {
+      "Type" : "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties" : {
+        "Certificates" : [ { "CertificateArn": "arn:aws:acm:us-east-1:066234982609:certificate/945f4e19-9aeb-4164-86df-46e5a2d9dd04" } ],
+        "DefaultActions" : [{
+          "Type": "forward",
+          "TargetGroupArn":  { "Ref": "IaaCTargetGroup" }
+        }],
+        "LoadBalancerArn" : { "Ref": "IaaCLoadBalancer" },
+        "Port" : 443,
+        "Protocol" : "HTTPS",
+        "SslPolicy" : "ELBSecurityPolicy-2016-08"
+      }
+    },
+    "IaaCASG": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": ["us-east-1a"],
+        "VPCZoneIdentifier": ["subnet-b5c076ea"],
+        "LaunchTemplate": {
+          "LaunchTemplateId": "lt-0af133d9e7c36c9ef",
+          "Version": "6"
+        },
+        "MinSize" : "1",
+        "MaxSize" : "5",
+        "TargetGroupARNs": [ { "Ref": "IaaCTargetGroup" } ]
+      }
+    }
+  }
+}
