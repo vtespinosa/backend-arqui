@@ -6,5 +6,5 @@ urlpatterns = [
   path('messages/', views.messages.as_view() ),
   path('create_user/', views.create_user),
   path('create_room/', views.create_room),
-  path('/', views.check_health),
+  path('', views.check_health),
 ]
