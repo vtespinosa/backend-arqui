@@ -1,3 +1,3 @@
 #!/bin/bash
-docker-compose -f /home/ubuntu/backend-arqui/docker-compose.production.yml build
-docker-compose -f /home/ubuntu/backend-arqui/docker-compose.production.yml up -d
+docker-compose -f /home/ubuntu/backend-arqui/docker-compose.prod.yml build
+docker-compose -f /home/ubuntu/backend-arqui/docker-compose.prod.yml up -d

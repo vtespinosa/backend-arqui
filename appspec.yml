@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source: scripts
-    destination: /home/ubuntu/we-chat
+    destination: /home/ubuntu/backend-arqui
 permissions:
   - object: scripts
     pattern: "**"
