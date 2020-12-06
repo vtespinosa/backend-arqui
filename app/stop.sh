@@ -1,3 +1,3 @@
 #!/bin/bash
-docker-compose -f /home/ubuntu/backend-arqui/docker-compose.prod.yml down
-docker stop $(docker ps -a -q)
+sudo docker-compose -f /home/ubuntu/backend-arqui/docker-compose.prod.yml down
+sudo docker stop $(docker ps -a -q)
