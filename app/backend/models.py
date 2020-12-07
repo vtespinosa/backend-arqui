@@ -19,6 +19,7 @@ class Message(models.Model):
   date = models.DateTimeField(auto_now_add=True)
   nickname = models.CharField(max_length=100)
   room = models.CharField(max_length=100)
+  censored = models.BooleanField(default=False)
 
   def __str__(self):
     return self.text

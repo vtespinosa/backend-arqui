@@ -10,10 +10,7 @@ def jwt_get_username_from_payload_handler(payload):
     return username
 
 def jwt_decode_token(token):
-    print(f'token: {token}')
     header = jwt.get_unverified_header(token)
-    print("header: {}".format(header))
-    print('hola')
     jwks = requests.get('https://{}/.well-known/jwks.json'.format('we-chat.us.auth0.com')).json()
     public_key = None
     for jwk in jwks['keys']:
