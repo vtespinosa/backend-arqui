@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Auth
+    'social_django',
 ]
 
 REST_FRAMEWORK = {
@@ -185,3 +188,37 @@ CORS_ORIGIN_WHITELIST = [
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_KEY")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_KEY")
+
+# Auth0 settings
+SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
+SOCIAL_AUTH_AUTH0_DOMAIN = 'we-chat.us.auth0.com'
+SOCIAL_AUTH_AUTH0_KEY = 'zCpVHWCX9mzU2RtM7LQj8mbsc9sZy72k'
+SOCIAL_AUTH_AUTH0_SECRET = '84neUtSO3cB9WRV1WhsX3ZiYH2IhfGi7mWpu4QiYQfOHnOOhC2Ps0rurs0gnz_wX'
+SOCIAL_AUTH_AUTH0_SCOPE = [
+    'openid',
+    'profile',
+    'email'
+]
+
+AUTHENTICATION_BACKENDS = {
+    'backend.authentication.auth0.Auth0',
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+}
+
+LOGIN_URL = '/login/auth0'
+LOGIN_REDIRECT_URL = '/admin'
+LOGOUT_REDIRECT_URL = 'http://localhost:3000'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'backend.authentication.authorization.process_roles',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)

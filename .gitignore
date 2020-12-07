@@ -1,0 +1,6 @@
+.env
+.env.prod
+.env.prod.db
+.vscode
+__pycache__/
+.DS_Store

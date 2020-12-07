@@ -9,6 +9,8 @@ from functools import wraps
 import jwt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from django.contrib.auth import logout as django_logout
+from django.http import HttpResponseRedirect
 
 
 def get_token_auth_header(request):
@@ -81,3 +83,11 @@ class rooms(generics.ListCreateAPIView):
 class messages(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+
+def logout(request):
+    django_logout(request)
+    domain = '<YOUR-AUTH0-DOMAIN>'
+    client_id = '<YOUR-AUTH0-CLIENT-ID>'
+    return_to = 'http://localhost:8000'
+    return HttpResponseRedirect(f'https://{domain}/v2/logout?client_id={client_id}&returnTo={return_to}')

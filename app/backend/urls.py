@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -7,4 +7,9 @@ urlpatterns = [
   path('create_user/', views.create_user),
   path('create_room/', views.create_room),
   path('', views.check_health),
+
+  # Social django
+  path('', include('social_django.urls')),
+  path('', include('django.contrib.auth.urls')),
+  path('logout/', views.logout),
 ]
