@@ -3,21 +3,21 @@ os: linux
 
 files:
   - source: scripts
-    destination: /home/ubuntu/backend-arqui/
+    destination: /home/app/web/
 permissions:
   - object: scripts
     pattern: "**"
     owner: ubuntu
 hooks:
   ApplicationStop:
-    - location: app/stop.sh
+    - location: stop.sh
       timeout: 600
       runas: ubuntu
   AfterInstall:
-    - location: app/install.sh
+    - location: install.sh
       timeout: 600
       runas: ubuntu
   ApplicationStart:
-    - location: app/start.sh
+    - location: start.sh
       timeout: 600
       runas: ubuntu
