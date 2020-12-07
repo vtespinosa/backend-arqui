@@ -2,7 +2,7 @@
 
 * Se están utilizando dos repositorios, este para el backend y https://github.com/iic2173/iic2173-proyecto-semestral-grupo10-frontend para el frontend.
 * Las credenciales de acceso a la instancia EC2 se encuentran en la entrega de canvas
-* Prueba deploy 1
+* Prueba deploy 2
 
 #  Método de acceso al servidor con archivo *.pem* y *ssh*
 
