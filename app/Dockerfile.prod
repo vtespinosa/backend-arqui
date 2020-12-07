@@ -19,6 +19,9 @@ RUN pip install -r requirements.txt
 
 COPY ./entrypoint.prod.sh $APP_HOME
 COPY ./test.sh $APP_HOME
+COPY ./stop.sh $APP_HOME
+COPY ./install.sh $APP_HOME
+COPY ./start.sh $APP_HOME
 
 COPY . $APP_HOME
 
