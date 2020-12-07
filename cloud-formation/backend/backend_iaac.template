@@ -75,7 +75,7 @@
         "VPCZoneIdentifier": ["subnet-b5c076ea"],
         "LaunchTemplate": {
           "LaunchTemplateId": "lt-0af133d9e7c36c9ef",
-          "Version": "6"
+          "Version": "7"
         },
         "MinSize" : "1",
         "MaxSize" : "5",
